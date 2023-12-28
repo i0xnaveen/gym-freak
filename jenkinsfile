@@ -15,7 +15,7 @@ pipeline{
     }
     stage("checkout from SCM"){
       steps{
-        git branch:'main',credentialsId:'github',url:'https://github.com/i0xnaveen/ToDoList'
+        git branch:'main',credentialsId:'github',url:'https://github.com/i0xnaveen/gym-freak'
       }
     }
     stage("Sonarqube-analysis"){
@@ -47,9 +47,16 @@ pipeline{
       steps{
         script{
           withDockerRegistry(credentialsId:'dockerhub',toolname:'docker'){
-            sh "docker build -t todo ."
-            sh "docker tag todo i0xnaveen/todo:latest"
-            sh " docker push i0xnaveen/todo:latest"
+            dir('client'){
+                sh "docker build -t clientimage ."
+                sh "docker tag todo i0xnaveen/gymclient:latest"
+                sh " docker push i0xnaveen/gymserver:latest"
+           }
+            dir('server'){
+                sh "docker build -t serverimage ."
+                sh "docker tag todo i0xnaveen/gymserver:latest"
+                sh " docker push i0xnaveen/gymserver:latest"
+            }
           }
           }
       }
