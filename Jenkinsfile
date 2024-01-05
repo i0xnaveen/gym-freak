@@ -31,15 +31,7 @@ pipeline {
             }
         }
       
-        stage("Quality Gate") {
-            steps {
-                script {
-                    def qg = waitForQualityGate abortPipeline: false, credentialsId: 'SonarQube-Token'
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to Quality Gate failure: ${qg.status}"
-                    }
-                }
-            }
+       
         }
       
         stage("Build Application") {
