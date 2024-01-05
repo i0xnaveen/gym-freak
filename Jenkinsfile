@@ -31,9 +31,6 @@ pipeline {
             }
         }
       
-       
-        }
-      
         stage("Build Application") {
             steps {
                 dir('client') {
