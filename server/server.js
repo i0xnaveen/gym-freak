@@ -7,7 +7,12 @@ const path = require('path');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+const cors = require('cors');
 
+
+
+// Enable CORS for all routes
+app.use(cors());
 server = new ApolloServer({
   typeDefs,
   resolvers,
